@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CountDown Q</title>
+    <link href="https://fonts.googleapis.com/css?family=Bilbo" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Q</h1>
+    <p>令和改元まであと<span id="nokori"></span></p>
+    <p><span id="remainigDays"></span>days <span id="remainigTIme"></span> to go....</p>
+    <script>
+        function getResult(){
+            // 現在時刻とターゲットの時刻の差を産出
+            var target = new Date(2019 , 6 , 1, 0, 0, 0).getTime();
+            // Javascriptの月を取得するときは
+            var now = Date.now();
+            var diff = (target - now ) / 1000;
+            // 残り日数や時間を計算
+
+            var d = Math.floor(diff/60/60/24);
+            diff = diff - d * 60 * 60 * 24;
+            var h = Math.floor(diff/60/60);
+            diff = diff - 60 * 60 * h;
+            var m = Math.floor(diff/60);
+            diff = diff - 60 * m;
+            var s = Math.floor(diff);
+            
+            // 結果を表示
+            document.getElementById('remainigDays').innerHTML = d;
+            document.getElementById('remainigTIme').innerHTML = padZero(h) + ":" + padZero(m) + ":" + padZero(s);
+            // 繰り返し処理
+            setTimeout(function(){
+                getResult();
+            },200);
+        }
+        getResult();
+
+        function padZero(n){
+            return (n < 10 ) ? '0' + n : n;
+        }
+    </script>
+</body>
+</html>
